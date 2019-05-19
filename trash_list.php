@@ -17,7 +17,7 @@ $database->closeConnect();
 
 <div class="row">
     <?php foreach ( $posts as $post ) : ?>
-        <?php if ($post['isDelete'] == 1) : ?>
+        <?php if ($post['deleted'] == 1) : ?>
             <div class="col-md-9 mb-3">
                 <div class="card shadow-sm">
                     <div class="card-header">

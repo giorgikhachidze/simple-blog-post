@@ -11,12 +11,12 @@ if (isset($_POST['delete'])) {
 
     $postId = $_POST['id'];
 
-    $sql = "UPDATE posts SET isDelete=:isDelete WHERE id=:id";
+    $sql = "UPDATE posts SET deleted=:deleted WHERE id=:id";
 
     $deleteData = $database->pdo->prepare($sql);
     $deleteData->execute([
         ':id' => $postId,
-        ':isDelete' => 1
+        ':deleted' => 1
     ]);
 
     $redirect->where('სიახლე წაიშალა წარმატებით', '/', 200);

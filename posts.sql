@@ -13,7 +13,7 @@ CREATE TABLE `posts` (
     `title` varchar(255) NOT NULL,
     `description` text NOT NULL,
     `image` varchar(255) NOT NULL,
-    `isDelete` tinyint(1) NOT NULL DEFAULT 0,
+    `deleted` tinyint(1) NOT NULL DEFAULT 0,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
