@@ -1,4 +1,22 @@
-<?php session_start(); ?>
+<?php
+
+session_start();
+
+require_once "database/database.php";
+$config = require_once "database/config.php";
+
+$database     = new Database($config);
+
+$sql = "SELECT id, title, description, image, created_at FROM posts WHERE id=:id";
+$result = $database->pdo->prepare($sql);
+$result->execute([
+        'id' => $_GET['id']
+]);
+
+$post = $result->fetch();
+
+$database->closeConnect();
+?>
     <!doctype html>
     <html lang="en">
     <head>
@@ -22,14 +40,11 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/">მთავარი</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/create.php">სიახლის დამატება</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/trash.php">სანაგვე</a>
                     </li>
                 </ul>
             </div>
@@ -54,25 +69,27 @@
             </div>
         <?php endif; ?>
 
-        <form action="create_post.php" method="post" enctype="multipart/form-data">
+        <form action="update_post.php" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-9">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="postTitle">სათაური</label>
-                                <input type="text" name="post_title" class="form-control" id="postTitle" placeholder="სიახლის სათაური">
+                                <input type="text" name="post_title" class="form-control" id="postTitle" value="<?=$post['title']?>">
                             </div>
                             <div class="form-group">
                                 <label for="postDescription">აღწერა</label>
-                                <textarea class="form-control" name="post_description" id="postDescription" rows="6" placeholder="სიახლის აღწერა"></textarea>
+                                <textarea class="form-control" name="post_description" id="postDescription" rows="6"><?=$post['description']?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <img class="w-25 rounded" src="/uploads/images/<?=$post['image']?>" alt="<?=$post['title']?>">
                             </div>
                             <div class="form-group">
                                 <label for="postFile">სურათის ატვირთვა</label>
                                 <div class="custom-file" id="postFile">
                                     <input type="file" name="post_image" class="custom-file-input" id="postFile">
-                                    <label class="custom-file-label" for="FileLangHTML" data-browse="არჩევა">აირჩიეთ
-                                        სურათი...</label>
+                                    <label class="custom-file-label" for="FileLangHTML" data-browse="არჩევა"><?=$post['image']?></label>
                                 </div>
                             </div>
                         </div>
@@ -82,12 +99,17 @@
                 <div class="col-md-3">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <button type="submit" name="upload" class="btn btn-success btn-sm btn-block shadow-sm">დამატება</button>
+                            <input type="hidden" name="id" value="<?=$_GET['id']?>">
+                            <button type="submit" name="update" class="btn btn-success btn-sm btn-block shadow-sm mb-2">განახლება</button>
+                            </form>
+                            <form action="delete_post.php" method="post">
+                                <input type="hidden" name="id" value="<?=$_GET['id']?>">
+                                <button type="submit" name="delete" class="btn btn-danger btn-sm btn-block shadow-sm">წაშლა</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 
     <!-- Optional JavaScript -->
@@ -104,5 +126,5 @@
         $('.alert').alert();
     </script>
     </body>
-</html>
+    </html>
 <?php session_destroy(); ?>

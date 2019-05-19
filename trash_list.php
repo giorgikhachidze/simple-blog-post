@@ -17,7 +17,7 @@ $database->closeConnect();
 
 <div class="row">
     <?php foreach ( $posts as $post ) : ?>
-        <?php if ($post['isDelete'] == 0) : ?>
+        <?php if ($post['isDelete'] == 1) : ?>
             <div class="col-md-9 mb-3">
                 <div class="card shadow-sm">
                     <div class="card-header">
@@ -40,9 +40,13 @@ $database->closeConnect();
             <div class="col-md-3">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form action="edit.php?id=<?php echo $post['id'] ?>" method="get">
+                        <form action="restore_post.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $post['id'] ?>">
-                            <button type="submit" class="btn btn-primary btn-sm btn-block shadow-sm">რედაქტირება</button>
+                            <button type="submit" name="restore" class="btn btn-success btn-sm btn-block shadow-sm mb-2">აღდგენა</button>
+                        </form>
+                        <form action="soft_delete.php" method="post">
+                            <input type="hidden" name="id" value="<?php echo $post['id'] ?>">
+                            <button type="submit" name="softDelete" class="btn btn-danger btn-sm btn-block shadow-sm">წაშლა</button>
                         </form>
                     </div>
                 </div>

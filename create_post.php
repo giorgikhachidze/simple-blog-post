@@ -19,7 +19,7 @@ if (isset($_POST['upload'])) {
     $fileSize     = $_FILES['post_image']['size'];
     $fileTmp      = $_FILES['post_image']['tmp_name'];
     $fileType     = $_FILES['post_image']['type'];
-    $fileStatus    = $_FILES['post_image']['error'];
+    $fileStatus   = $_FILES['post_image']['error'];
     $nameWithExt  = getUniqueName($requestTime, $fileName);
 
     if (empty($postTitle)) {
@@ -30,11 +30,11 @@ if (isset($_POST['upload'])) {
         $redirect->where('გთხოვთ მიუთითოთ სიახლის აღწერა', '/create.php', 400);
     }
 
-    if ($fileStatus === 4) {
+    if ($fileStatus == 4) {
         $redirect->where('სურათი არარის არჩეული', '/create.php', 400);
     }
 
-    if ($_FILES['post_image']['error'] === UPLOAD_ERR_OK) {
+    if ($fileStatus == 0) {
 
         try {
             $data = [
