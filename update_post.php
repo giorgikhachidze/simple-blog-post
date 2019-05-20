@@ -29,11 +29,11 @@ if (isset($_POST['update'])) {
     }
 
     if (empty($postDesc)) {
-        $redirect->where('გთხოვთ მიუთითოთ სიახლის აღწერა', 'edit.php?id=' . $postId, 400);
+        $redirect->where('გთხოვთ მიუთითოთ სიახლის აღწერა', '/edit.php?id=' . $postId, 400);
     }
 
     if ($fileStatus == 1) {
-        $redirect->where('ფაილი ზომა უნდა იყოს 2მბ ან ნაკლები', 'edit.php?id=' . $postId, 400);
+        $redirect->where('ფაილის ზომა უნდა იყოს 2მბ ან ნაკლები', '/edit.php?id=' . $postId, 400);
     }
 
     if ($fileStatus == 0 || $fileStatus == 4) {

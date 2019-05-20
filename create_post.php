@@ -56,7 +56,7 @@ if (isset($_POST['upload'])) {
 
         $redirect->where('სიახლე წარმატებით დაემატა', '/create.php', 200);
     } else {
-        $redirect->where('ფაილი ზომა უნდა იყოს 2მბ ან ნაკლები', '/create.php', 400);
+        $redirect->where('ფაილის ზომა უნდა იყოს 2მბ ან ნაკლები', '/create.php', 400);
     }
 
 }
