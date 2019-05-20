@@ -40,7 +40,7 @@ $database->closeConnect();
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/">მთავარი</a>
                     </li>
                     <li class="nav-item active">
