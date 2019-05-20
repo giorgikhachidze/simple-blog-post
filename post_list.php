@@ -22,7 +22,10 @@ $database->closeConnect();
                 <div class="card shadow-sm">
                     <div class="card-header">
                         <h5><?php echo $post['title']; ?></h5>
-                        <small><?php echo $post['created_at']; ?></small>
+                        <small class="mb-2">გამოქვეყნდა: <?php echo $post['created_at']; ?></small>
+                        <?php if (!empty($post['updated_at'])) : ?>
+                        <div class="float-xl-right float-md-right"><small>განახლდა: <?php echo $post['updated_at']; ?></small></div>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="row">
