@@ -46,6 +46,9 @@ $database->closeConnect();
                     <li class="nav-item active">
                         <a class="nav-link" href="/create.php">სიახლის დამატება</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/trash.php">სანაგვე</a>
+                    </li>
                 </ul>
             </div>
         </div>
