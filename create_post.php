@@ -63,9 +63,15 @@ if (isset($_POST['upload'])) {
 
 function getUniqueName($requestTime, $fileName)
 {
+    $redirect     = new Redirect();
+
     $fileName = strtolower($fileName);
     $explodeFile = explode('.', $fileName);
     $fileExt = end($explodeFile);
 
-    return md5(uniqid( $requestTime, true)) . "." .$fileExt;
+    if ($fileExt === 'jpg' || $fileExt === 'jpeg' || $fileExt === 'png') {
+        return md5(uniqid( $requestTime, true)) . "." . $fileExt;
+    } else {
+        return $redirect->where( 'ფაილის გაფართოება უნდა იყოს jpg, jpeg ან png.', '/create.php', 400);
+    }
 }

@@ -91,9 +91,22 @@ if (isset($_POST['update'])) {
 
 function getUniqueName($requestTime, $fileName)
 {
+    $redirect = new Redirect();
+    $postId = $_POST['id'];
+
     $fileName = strtolower($fileName);
     $explodeFile = explode('.', $fileName);
     $fileExt = end($explodeFile);
 
-    return md5(uniqid( $requestTime, true)) . "." .$fileExt;
+    if ($_FILES['post_image']['error'] == 4) {
+        return md5(uniqid( $requestTime, true)) . "." . $fileExt;
+    }
+
+    if ($_FILES['post_image']['error'] == 0) {
+        if ($fileExt === 'jpg' || $fileExt === 'jpeg' || $fileExt === 'png') {
+            return md5(uniqid( $requestTime, true)) . "." . $fileExt;
+        } else {
+            return $redirect->where( 'ფაილის გაფართოება უნდა იყოს jpg, jpeg ან png.', '/edit.php?id=' . $postId, 400);
+        }
+    }
 }
